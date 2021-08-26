@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajex</title>
+</head>
+<body>
+    <button id="talk">Talk</button>
+
+    <div id="content"></div>
+    <script>
+        
+        const talk = document.getElementById("talk")
+        const content = document.getElementById("content");
+
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition 
+        const recognition = new SpeechRecognition();
+
+        recognition.onstart = function (){
+            console.log("voice is activated");
+        }
+
+        recognition.onresult = function (event){
+            console.log(event);
+            const current = event.resultIndex
+            content.innerHTML = event.results[current][0].transcript
+        }
+
+        talk.addEventListener("click",()=>{
+            recognition.start()
+        })
+    </script>
+</body>
+</html>
